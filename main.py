@@ -18,15 +18,15 @@ def validate_custom_attribute():
     value = request.args.get('value')
     # Verifica se todos os parâmetros estão presentes
     if not attribute_type or not key or not value:
-        return jsonify({"error": "Missing required parameters"}), 400
+        return jsonify({"statusCode": "Missing required parameters"}), 400
     # Valida o formato do CEP
     if len(value) != 8 or not value.isdigit():
-        return jsonify({"error": "Invalid CEP format"}), 400
+        return jsonify({"statusCode": "Invalid CEP format"}), 400
     # Valida o CEP com a API externa
     is_valid = validar_cep(value)
     if is_valid:
-        return jsonify({"message": "Valid CEP"}), 200
+        return jsonify({"statusCode": "SUCCESS"}), 200
     else:
-        return jsonify({"error": "Invalid CEP"}), 400
+        return jsonify({"statusCode": "Invalid CEP"}), 400
 if __name__ == '__main__':
     app.run(debug=True)
